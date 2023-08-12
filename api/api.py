@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from todo_list import todo_router
 
-app = FastAPI()
+app = FastAPI(title='Tutorial app')
 
 
 @app.get("/")

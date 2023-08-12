@@ -33,7 +33,8 @@ todo_list = [
 async def add_todo(
         request: Request,
         todo: Todo = Depends(Todo.as_form)) -> dict:
-    todo_list.append(todo)
+    todo.id = len(todo_list) + 1
+    todo_list.append(dict(todo))
     return templates.TemplateResponse(
         "todo.html",
         {
@@ -63,7 +64,7 @@ async def get_single_todo(
         todo_id: int = Path(
             ..., title="The ID of the todo to retrieve.")) -> dict:
     for todo in todo_list:
-        if todo.get('id') == todo_id:
+        if todo.get("id") == todo_id:
             return templates.TemplateResponse(
                 "todo.html",
                 {
@@ -89,7 +90,7 @@ async def update_todo(
                 "message": "Todo updated successfully."
                 }
     raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, 
+        status_code=status.HTTP_404_NOT_FOUND,
         detail="Todo with supplied ID doesn't exist",
     )
 

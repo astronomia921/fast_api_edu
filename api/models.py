@@ -33,12 +33,13 @@ class TodoItems(BaseModel):
 
 
 class Todo(BaseModel):
-    id: Optional[int]
+    id: Optional[int] = None
     item: str
 
     @classmethod
     def as_form(
-        cls, item: str = Form(...)
+            cls,
+            item: str = Form(...)
     ):
         return cls(item=item)
 
@@ -46,6 +47,6 @@ class Todo(BaseModel):
         json_schema_extra = {
             "example": {
                 "id": 1,
-                "item": 'item'
+                "item": "Example schema!"
             }
         }
